@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REACTION TESTER</title>
+    <style>
+        #shape {
+            position: relative;
+            display: none;
+            
+        }
+        #shape:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Reaction Tester</h1>
+    <p>Your Time: <span id="time"></span></p>
+    <div id="shape"></div>
+
+    <script type="text/javascript">
+        var start = new Date().getTime();
+
+        function appear(x, y) {
+           var position= Math.random() *400;
+            var size = Math.random() * 300;
+            document.getElementById("shape").style.top = position + "px";
+            document.getElementById("shape").style.left = position + "px";
+            document.getElementById("shape").style.width = size + "px";
+            document.getElementById("shape").style.height = size + "px";
+
+            function randomcolor() {
+                var letter = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color = color + letter[Math.floor(Math.random() * 16)]
+                }
+                return color;
+            }
+            if (Math.random() > 0.5) {
+                document.getElementById("shape").style.borderRadius = "50%";
+            } else {
+                document.getElementById("shape").style.borderRadius = "0%";
+            }
+            document.getElementById("shape").style.backgroundColor = randomcolor();
+            document.getElementById("shape").style.display = "block";
+
+            start = new Date().getTime();
+        }
+        function timeout() {
+            setTimeout(appear, Math.random() * 2000);
+        }
+        timeout();
+        document.getElementById("shape").onclick = function (event) {
+
+            var end = new Date().getTime();
+            var time = (end - start) / 1000;
+
+            document.getElementById("shape").style.display = "none";
+            document.getElementById("time").innerHTML = time + " secs";
+            timeout();
+            event.stopPropagation();
+        }
+    </script>
+</body>
+
+</html>
